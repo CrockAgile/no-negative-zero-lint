@@ -7,7 +7,10 @@ const plugin: Deno.lint.Plugin = {
           UnaryExpression(node) {
             if (node.operator === "-") {
               const argument = node.argument;
-              if (argument.type === "Literal" && argument.raw === "0") {
+              if (
+                argument.type === "Literal" && argument.raw.startsWith("0") &&
+                argument.value === 0
+              ) {
                 context.report({
                   node,
                   message: "Negative zero is not allowed",
