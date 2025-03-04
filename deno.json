@@ -1,0 +1,15 @@
+{
+  "name": "@crockagile/no-negative-zero-rule",
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "license": "Unlicense",
+  "version": "0.1.0",
+  "lint": {
+    "plugins": ["./plugin.ts"]
+  },
+  "exports": "./plugin.ts",
+  "imports": {
+    "@std/assert": "jsr:@std/assert@1"
+  }
+}
