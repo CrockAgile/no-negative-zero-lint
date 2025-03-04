@@ -4,17 +4,19 @@ const plugin: Deno.lint.Plugin = {
     "no-negative-zero-rule": {
       create(context) {
         return {
-          Literal(node) {
-            // deno-lint-ignore no-compare-neg-zero
-            if (node.value === -0.0) {
-              context.report({
-                node,
-                message: "Negative zero is not allowed",
-                hint: "Use 0.0 instead of -0.0",
-                fix(fixer) {
-                  return fixer.replaceText(node, "0.0");
-                },
-              });
+          UnaryExpression(node) {
+            if (node.operator === "-") {
+              const argument = node.argument;
+              if (argument.type === "Literal" && argument.raw === "0") {
+                context.report({
+                  node,
+                  message: "Negative zero is not allowed",
+                  hint: "Use 0 instead of -0",
+                  fix(fixer) {
+                    return fixer.replaceText(node, "0");
+                  },
+                });
+              }
             }
           },
         };
@@ -23,4 +25,5 @@ const plugin: Deno.lint.Plugin = {
   },
 };
 
+/** This plugin is used to enforce the use of 0.0 instead of -0.0 */
 export default plugin;

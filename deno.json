@@ -3,6 +3,7 @@
   "tasks": {
     "dev": "deno run --watch main.ts"
   },
+  "description": "Deno lint plugin to enforce the use of 0.0 instead of -0.0",
   "license": "Unlicense",
   "version": "0.1.0",
   "lint": {
